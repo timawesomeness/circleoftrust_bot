@@ -13,7 +13,7 @@ for i in reddit.subreddit("circleoftrust").stream.submissions():
         try:
             output = reddit.post("/api/guess_voting_key.json", data=dict(id=i.name, raw_json=1, vote_key=i.title))
             key = i.title
-            if not output.get(key) and key and key != "" and key != key.split()[-1]:
+            if not output.get(key) and key and key != "" and len(key.split()) > 1:
                 first_output = output
                 output = reddit.post("/api/guess_voting_key.json", data=dict(id=i.name, raw_json=1, vote_key=i.title.split()[-1]))
                 key = i.title.split()[-1]
